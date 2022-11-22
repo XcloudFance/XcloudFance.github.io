@@ -23,19 +23,44 @@
 	<link rel="stylesheet" href="plugin/highlight/monokai.css">
 	<style type="text/css" media="screen">
 		/* Google Dark Grey */
-		h1,h2,h3{
-			color:#404040; 
+		h1,
+		h2,
+		h3 {
+			color: #404040;
 		}
+
 		/* Google Grey */
-		p,li{
-			color:#676c72;
+		p,
+		li {
+			color: #676c72;
 		}
 
 		#lefter {
-			margin-right: 20%;
-		}
-		.left-side{
+
 			text-align: left;
+			padding-left: 10%;
+			padding-top: 20%;
+
+		}
+
+		.slides {
+			line-height: 10%;
+		}
+
+		.left-side {
+			text-align: left;
+		}
+
+		.column {
+			float: left;
+			width: 50%;
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
 		}
 	</style>
 </head>
@@ -47,13 +72,34 @@
 		<!-- Any section element inside of this container is displayed as a slide -->
 		<div class="slides">
 			<section data-background="./assets/bg.png">
+				<div id="lefter" class="row">
+					<h3 class="row">Machine Learning Appetizer Course</h3>
 
-				<h3 id="lefter">Machine Learning Appetizer Course</h3>
-				<p id="lefter">
 					<small>Session3: Recommendation Systems
 					</small>
-				</p>
+					<br />
+					<div class="column" style="margin-left: -70px;">
+						<img class="column" src="./assets/yh.jpg" style="height:140px; width:130px;" />
+						<div class="column">
+							<small class="row" style="padding-left: 25px; padding-top: 25px; color:#4285F4;">Yu Yuen
+								Hern</small>
+							<br />
+							<img class="row" src="./assets/github.png"
+								style="margin-left:25px;height:40px; width:40px;" />
+						</div>
+					</div>
 
+					<div class="column">
+						<img class="column" src="./assets/hy.jpg" style="height:140px; width:110px;" />
+						<div class="column">
+							<small class="row"
+								style="padding-left: 25px; padding-top: 25px; color:#4285F4;">Hongyi(Lance) Cai</small>
+							<a href="https://github.com/xcloudfance"><img class="row" src="./assets/github.png"
+								style="margin-left:25px;height:40px; width:40px;" /></a>
+						</div>
+					</div>
+
+				</div>
 			</section>
 
 			<section data-background="./assets/bg1.png">
@@ -82,20 +128,19 @@ Recommendations allow users to get in touch with compelling content in large cor
 			<section data-background="./assets/bg1.png" class="left-side">
 
 				<section data-markdown>
-					<script type = "text/template">
+					<script type="text/template">
 					## Terminologies
 					Few terminologies to know:
 					1. Items
 						- A.K.A documents
 						- For YouTube / Netflix, the items are videos and shows
-
+				
 					</script>
-
 
 
 				</section>
 				<section data-markdown>
-					<script type = "text/template">
+					<script type="text/template">
 					2. Query:
 						- A.K.A context
 						- The information used to make recommendations
@@ -105,7 +150,7 @@ Recommendations allow users to get in touch with compelling content in large cor
 				</section>
 
 				<section data-markdown>
-					<script type = "text/template">
+					<script type="text/template">
 					3. Embedding
 						- A.K.A mapping to vector space
 						- A mapping from a discrete set (set of items) to an embedding space
@@ -118,7 +163,7 @@ Recommendations allow users to get in touch with compelling content in large cor
 			<section data-background="./assets/bg1.png" class="left-side">
 
 				<section data-markdown>
-					<script type = "text/template">
+					<script type="text/template">
 						### Recommendation Systems Overview
 						A recommendation system consists of:
 						1. Candidate generation
@@ -132,7 +177,7 @@ Recommendations allow users to get in touch with compelling content in large cor
 				</section>
 
 				<section data-markdown>
-					<script type = "text/template">
+					<script type="text/template">
 					2. Scoring
 						- Scores and ranks candidates in order
 						- Selects a set of sorted items to display to user
@@ -142,13 +187,6 @@ Recommendations allow users to get in touch with compelling content in large cor
 					</script>
 				</section>
 
-				<section data-markdown>
-					<script type = "text/template">
-					3. Embedding
-						- A.K.A mapping to vector space
-						- A mapping from a discrete set (set of items) to an embedding space
-					</script>
-				</section>
 
 
 			</section>
@@ -157,7 +195,7 @@ Recommendations allow users to get in touch with compelling content in large cor
 
 
 
-	
+
 			<section data-auto-animate>
 				<h2 data-id="code-title">Pretty Code</h2>
 				<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>

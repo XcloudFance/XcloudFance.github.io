@@ -84,8 +84,8 @@
 							<small class="row" style="padding-left: 25px; padding-top: 25px; color:#4285F4;">Yu Yuen
 								Hern</small>
 							<br />
-							<img class="row" src="./assets/github.png"
-								style="margin-left:25px;height:40px; width:40px;" />
+						<a href="https://github.com/yuenherny"><img class="row" src="./assets/github.png"
+								style="margin-left:25px;height:40px; width:40px;" /></a>	
 						</div>
 					</div>
 
@@ -115,8 +115,8 @@ Recommendations are the suggestions served up based on other things the user (e.
 
 				</section>
 
-				<section data-markdown>
-					<script type="text/template">
+				<section data-markdown class = "left-side">
+					<script type="text/template" >
 
 ## Why Recommendations?
 Recommendations allow users to get in touch with compelling content in large corpora, particularly **items** that the user might not have thought to search for their own.
@@ -157,6 +157,34 @@ Recommendations allow users to get in touch with compelling content in large cor
 					</script>
 				</section>
 
+				<section data-auto-animate>
+					<h2 data-id="code-title">An example</h2>
+					<pre data-id="code-animation"><code class="python" data-trim data-line-numbers>
+						# Idealized Representation of Embedding
+						books = ["War and Peace", "Anna Karenina", 
+								  "The Hitchhiker's Guide to the Galaxy"]
+						books_encoded_ideal = [[0.53,  0.85],
+											              [0.60,  0.80],
+											              [-0.78, -0.62]]
+					    ...
+						</code></pre>
+				</section>
+	
+				<section data-auto-animate>
+					<h2 data-id="code-title">An example</h2>
+					<pre data-id="code-animation"><code class="python" data-trim data-line-numbers="|2,3|4-6|4|7|4-5">
+						# Idealized Representation of Embedding
+						books = ["War and Peace", "Anna Karenina", 
+								  "The Hitchhiker's Guide to the Galaxy"]
+						books_encoded_ideal = [[0.53,  0.85],
+											              [0.60,  0.80],
+											              [-0.78, -0.62]]
+						Similarity (dot product) between First and Second = 0.99
+						Similarity (dot product) between Second and Third = -0.94
+						Similarity (dot product) between First and Third = -0.97
+						</code></pre>
+					<small>(hint)dot product: x1y1 + x2y2</small>
+				</section>
 
 			</section>
 
@@ -187,11 +215,25 @@ Recommendations allow users to get in touch with compelling content in large cor
 					</script>
 				</section>
 
+				<section>
+					<img src = "./assets/recommendation-systems-overview.svg"/>
+				</section>
+
 
 
 			</section>
 
 
+			<section data-markdown>
+				<script type="text/template">
+				2. Scoring
+					- Scores and ranks candidates in order
+					- Selects a set of sorted items to display to user
+				3. Re-ranking
+					- Take into account additional constraints for final ranking
+					- E.g. removing disliked items or boost fresher content
+				</script>
+			</section>
 
 
 
@@ -369,46 +411,6 @@ Recommendations allow users to get in touch with compelling content in large cor
 					<a href="?transition=convex#/transitions">Convex</a> -
 					<a href="?transition=concave#/transitions">Concave</a> -
 					<a href="?transition=zoom#/transitions">Zoom</a>
-				</p>
-			</section>
-
-			<section id="themes">
-				<h2>Themes</h2>
-				<p>
-					reveal.js comes with a few themes built in: <br>
-					<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/black.css'); return false;">Black
-						(default)</a> -
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/white.css'); return false;">White</a>
-					-
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/league.css'); return false;">League</a>
-					-
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/sky.css'); return false;">Sky</a>
-					-
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/beige.css'); return false;">Beige</a>
-					-
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/simple.css'); return false;">Simple</a>
-					<br>
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/serif.css'); return false;">Serif</a>
-					-
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/blood.css'); return false;">Blood</a>
-					-
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/night.css'); return false;">Night</a>
-					-
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/moon.css'); return false;">Moon</a>
-					-
-					<a href="#"
-						onclick="document.getElementById('theme').setAttribute('href','dist/theme/solarized.css'); return false;">Solarized</a>
 				</p>
 			</section>
 

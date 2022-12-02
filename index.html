@@ -30,10 +30,7 @@
 		}
 
 		/* Google Grey */
-		p,
-		li {
-			color: #676c72;
-		}
+	
 
 		#lefter {
 
@@ -84,8 +81,8 @@
 							<small class="row" style="padding-left: 25px; padding-top: 25px; color:#4285F4;">Yu Yuen
 								Hern</small>
 							<br />
-						<a href="https://github.com/yuenherny"><img class="row" src="./assets/github.png"
-								style="margin-left:25px;height:40px; width:40px;" /></a>	
+							<a href="https://github.com/yuenherny"><img class="row" src="./assets/github.png"
+									style="margin-left:25px;height:40px; width:40px;" /></a>
 						</div>
 					</div>
 
@@ -95,7 +92,7 @@
 							<small class="row"
 								style="padding-left: 25px; padding-top: 25px; color:#4285F4;">Hongyi(Lance) Cai</small>
 							<a href="https://github.com/xcloudfance"><img class="row" src="./assets/github.png"
-								style="margin-left:25px;height:40px; width:40px;" /></a>
+									style="margin-left:25px;height:40px; width:40px;" /></a>
 						</div>
 					</div>
 
@@ -115,8 +112,8 @@ Recommendations are the suggestions served up based on other things the user (e.
 
 				</section>
 
-				<section data-markdown class = "left-side">
-					<script type="text/template" >
+				<section data-markdown class="left-side">
+					<script type="text/template">
 
 ## Why Recommendations?
 Recommendations allow users to get in touch with compelling content in large corpora, particularly **items** that the user might not have thought to search for their own.
@@ -169,7 +166,7 @@ Recommendations allow users to get in touch with compelling content in large cor
 					    ...
 						</code></pre>
 				</section>
-	
+
 				<section data-auto-animate>
 					<h2 data-id="code-title">An example</h2>
 					<pre data-id="code-animation"><code class="python" data-trim data-line-numbers="|2,3|4-6|4|7|4-5">
@@ -216,26 +213,107 @@ Recommendations allow users to get in touch with compelling content in large cor
 				</section>
 
 				<section>
-					<img src = "./assets/recommendation-systems-overview.svg"/>
+					<img src="./assets/recommendation-systems-overview.svg" />
 				</section>
 
 
 
 			</section>
 
+			<section data-background="./assets/bg2.png" >
+				<section data-markdown class="left-side" >
+					<script type="text/template">
 
-			<section data-markdown>
-				<script type="text/template">
-				2. Scoring
-					- Scores and ranks candidates in order
-					- Selects a set of sorted items to display to user
-				3. Re-ranking
-					- Take into account additional constraints for final ranking
-					- E.g. removing disliked items or boost fresher content
+## Candidate Generation
+This is the first stage of recommendation: given a query, a set of relevant candidates are generated.
+
 				</script>
+				</section>
+
+				<section data-markdown class="left-side">
+					<script type="text/template">
+
+1. Content-based Filtering: 
+	- Uses **similarity between items** to recommend items similar to what the user likes.
+2. Collaborative Filtering
+	- Uses **similarities between queries and items simultaneously** to provide recommendations.
+
+				</script>
+				</section>
+
+
+				<section data-markdown class="left-side">
+					<script type="text/template">
+						<img src = "./assets/filtering.png" />
+
+				</script>
+				</section>
 			</section>
 
 
+			
+
+
+
+			<section data-background="./assets/bg3.png" >
+				<section data-markdown class="left-side">
+					<script type="text/template">
+
+### Basic Concepts: Embedding Space and Similarity Measure
+
+Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize embeddings and similarity measure.
+				</script>
+				</section>
+
+
+				<section data-markdown >
+					<script type="text/template">
+						<h2>Embedding space</h2>
+						Embedding space is a low-dimensional space which captures some latent structure of item or query set.
+				</script>
+				</section>
+
+
+				<section data-markdown >
+					<script type="text/template">
+						## Similarity measure
+						Similarity measure is a function that takes a pair of embeddings and returns a scalar measuring their similarity. 
+						
+				</script>
+				</section>
+
+				<section data-markdown >
+					<script type="text/template" class = "left-side">
+						**Comparing similarity measures**
+						- Cosine: Cosine of angle between two vectors
+						- Dot product: The cosine of angle multipled by product of norms
+						- Euclidean distance: Usual distance in Euclidean space						
+				</script>
+				</section>
+			</section>
+
+
+			<section data-markdown >
+				<script type="text/template">
+					## Short Quiz
+					<small>Consider the example in the figure below. The black vector illustrates the query embedding. The other three embedding vectors (Item A, Item B, Item C) represent candidate items. Depending on the similarity measure used, the ranking of the items can be different.
+					</small>
+					<img class="column" src="https://developers.google.com/machine-learning/recommendation/images/Similarity.svg" style="height:400px;" />
+					<small class = "column"> </br>Using the image, try to determine the item ranking using all three of the similarity measures: cosine, dot product, and Euclidean distance. Note: Instructor is recommended to demo the solution.</small>
+			</script>
+			</section>
+
+			<section data-markdown >
+				<script type="text/template" class = "left-side">
+					**Comparing similarity measures**
+					- Cosine: Cosine of angle between two vectors
+					- Dot product: The cosine of angle multipled by product of norms
+					- Euclidean distance: Usual distance in Euclidean space						
+			</script>
+			</section>
+		</section>
+
+		
 
 
 			<section data-auto-animate>
@@ -254,6 +332,11 @@ Recommendations allow users to get in touch with compelling content in large cor
 				<p>Code syntax highlighting courtesy of <a href="https://highlightjs.org/usage/">highlight.js</a>.</p>
 			</section>
 
+
+
+
+
+			
 			<section data-auto-animate>
 				<h2 data-id="code-title">With animations</h2>
 				<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|4,8-11|17|22-24"><script type="text/template">

@@ -30,7 +30,7 @@
 		}
 
 		/* Google Grey */
-	
+
 
 		#lefter {
 
@@ -220,8 +220,8 @@ Recommendations allow users to get in touch with compelling content in large cor
 
 			</section>
 
-			<section data-background="./assets/bg2.png" >
-				<section data-markdown class="left-side" >
+			<section data-background="./assets/bg2.png">
+				<section data-markdown class="left-side">
 					<script type="text/template">
 
 ## Candidate Generation
@@ -251,11 +251,11 @@ This is the first stage of recommendation: given a query, a set of relevant cand
 			</section>
 
 
-			
 
 
 
-			<section data-background="./assets/bg3.png" >
+
+			<section data-background="./assets/bg3.png">
 				<section data-markdown class="left-side">
 					<script type="text/template">
 
@@ -266,7 +266,7 @@ Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize
 				</section>
 
 
-				<section data-markdown >
+				<section data-markdown data-background="./assets/bg5.png">
 					<script type="text/template">
 						<h2>Embedding space</h2>
 						Embedding space is a low-dimensional space which captures some latent structure of item or query set.
@@ -274,7 +274,7 @@ Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize
 				</section>
 
 
-				<section data-markdown >
+				<section data-markdown>
 					<script type="text/template">
 						## Similarity measure
 						Similarity measure is a function that takes a pair of embeddings and returns a scalar measuring their similarity. 
@@ -282,376 +282,189 @@ Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize
 				</script>
 				</section>
 
-				<section data-markdown >
-					<script type="text/template" class = "left-side">
+				<section data-markdown>
+					<script type="text/template">
 						**Comparing similarity measures**
 						- Cosine: Cosine of angle between two vectors
 						- Dot product: The cosine of angle multipled by product of norms
-						- Euclidean distance: Usual distance in Euclidean space						
+						- Euclidean distance: Usual distance in Euclidean space		
+							
 				</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+				## Eculidean distance
+				<img style="height:300px;" src = "./assets/Euclidean.png">	
+			</script>
 				</section>
 			</section>
 
 
-			<section data-markdown >
+
+			<section data-markdown data-background="./assets/bg5.png">
 				<script type="text/template">
 					## Short Quiz
 					<small>Consider the example in the figure below. The black vector illustrates the query embedding. The other three embedding vectors (Item A, Item B, Item C) represent candidate items. Depending on the similarity measure used, the ranking of the items can be different.
 					</small>
 					<img class="column" src="https://developers.google.com/machine-learning/recommendation/images/Similarity.svg" style="height:400px;" />
 					<small class = "column"> </br>Using the image, try to determine the item ranking using all three of the similarity measures: cosine, dot product, and Euclidean distance. Note: Instructor is recommended to demo the solution.</small>
+					
 			</script>
 			</section>
 
-			<section data-markdown >
-				<script type="text/template" class = "left-side">
-					**Comparing similarity measures**
-					- Cosine: Cosine of angle between two vectors
-					- Dot product: The cosine of angle multipled by product of norms
-					- Euclidean distance: Usual distance in Euclidean space						
-			</script>
+			<section data-markdown data-background="./assets/bg3.png">
+				<script type="text/template">
+				### Content-based Filtering
+				Content-based filtering uses **item features** to recommend other items similar to what the user likes, based on their **previous actions** or **explicit feedback**.
+				</script>
 			</section>
-		</section>
 
+
+			<section>
+				<section data-markdown data-background="./assets/bg4.png">
+					<script type="text/template">
+		#### How does content-based filtering work?
+
+				<small class="fragment slide-up"> The following figure shows a feature matrix where each row represents an app (see first 3 rows) and each column represents a feature. To simplify, assume this feature matrix is binary i.e. [0, 1, ..., 1]: a non-zero value means the app has that feature - i.e. the first app has the Education and Science R Us features. </small>
+				<img class="fragment slide-up" src = "./assets/Matrix1.svg" style = "height:350px"/>
+				</script>
+
+
+
+				</section>
+
+
+			</section>
+
+
+
+			<section>
+				<section data-markdown data-background="./assets/bg6.png">
+					<script type="text/template">
+						Your objective is that the model should recommend items relevant to this user:
+	
+						1. Pick a similarity metric (for example, dot product)
+						2. Set up the system to score each candidate item according to this similarity metric
+					</script>
+	
+					
+				</section>
+				<section data-markdown data-background="./assets/bg1.png">
+					Based on the feature matrix above and using dot product `$$ \sum_{n=1}^{d} x_i y_i $$`let user embedding
+					as $x$ while app embedding as $y$ (binary vectors) - if the feature both appearing in $x$ and $y$, then
+					`1 * 1 = 1`.
+	
+				</section>
+			</section>
 		
 
 
-			<section data-auto-animate>
-				<h2 data-id="code-title">Pretty Code</h2>
-				<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
-						import React, { useState } from 'react';
 
-						function Example() {
-						  const [count, setCount] = useState(0);
+	
 
-						  return (
-						    ...
-						  );
-						}
-					</code></pre>
-				<p>Code syntax highlighting courtesy of <a href="https://highlightjs.org/usage/">highlight.js</a>.</p>
+			<section data-markdown data-background="./assets/bg2.png">
+				#### The Good and the Bad
+				| The Good | The Bad |
+				| --- | --- |
+				| Easily scalable | Recommendations limited to users' existing interests |
+				| Can capture specific interests of users | Requires a lot of domain knowledge for feature engineering |
+
+			</section>
+
+
+			<section data-markdown data-background="./assets/bg3.png">
+				## Short Quiz 3
+				Calculate the dot product for each app in the preceding app problem. Which app should we recommend?
+				- A. The casual app created by TimeWastr.
+				- B. The educational app created by Science R Us. (Answer)
+				- C. The health app created by Healthcare.
 			</section>
 
 
 
+			<section class="left-side" data-background="./assets/bg5.png">
+
+				<h3> Collaborative Filtering </h3>
+				<p> Collaborative filtering uses similarities between users and items simultaneously to provide
+					recommendations. Hence collaborative filtering can recommend an item to user A based on the
+					interests of similar user B.</p>
 
 
-			
-			<section data-auto-animate>
-				<h2 data-id="code-title">With animations</h2>
-				<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|4,8-11|17|22-24"><script type="text/template">
-						import React, { useState } from 'react';
 
-						function Example() {
-						  const [count, setCount] = useState(0);
-
-						  return (
-						    <div>
-						      <p>You clicked {count} times</p>
-						      <button onClick={() => setCount(count + 1)}>
-						        Click me
-						      </button>
-						    </div>
-						  );
-						}
-
-						function SecondExample() {
-						  const [count, setCount] = useState(0);
-
-						  return (
-						    <div>
-						      <p>You clicked {count} times</p>
-						      <button onClick={() => setCount(count + 1)}>
-						        Click me
-						      </button>
-						    </div>
-						  );
-						}
-					</script></code></pre>
 			</section>
 
 			<section>
-				<h2>Point of View</h2>
-				<p>
-					Press <strong>ESC</strong> to enter the slide overview.
-				</p>
-				<p>
-					Hold down the <strong>alt</strong> key (<strong>ctrl</strong> in Linux) and click on any element to
-					zoom towards it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Click again to zoom back
-					out.
-				</p>
-				<p>
-					(NOTE: Use ctrl + click in Linux.)
-				</p>
+
+				<img src="https://miro.medium.com/max/720/1*QvhetbRjCr1vryTch_2HZQ.jpeg" />
+				<br />
+				From the figure above, notice that there are two types of collaborative filtering: user-based and
+				item-based. Let's look at user-based first.
 			</section>
 
-			<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-				<h2>Auto-Animate</h2>
-				<p>Automatically animate matching elements across slides with <a
-						href="https://revealjs.com/auto-animate/">Auto-Animate</a>.</p>
-				<div class="r-hstack justify-center">
-					<div data-id="box1"
-						style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
-					<div data-id="box2"
-						style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
-					<div data-id="box3"
-						style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
-				</div>
-			</section>
-			<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-				<div class="r-hstack justify-center">
-					<div data-id="box1" data-auto-animate-delay="0"
-						style="background: cyan; width: 150px; height: 100px; margin: 10px;"></div>
-					<div data-id="box2" data-auto-animate-delay="0.1"
-						style="background: magenta; width: 150px; height: 100px; margin: 10px;"></div>
-					<div data-id="box3" data-auto-animate-delay="0.2"
-						style="background: yellow; width: 150px; height: 100px; margin: 10px;"></div>
-				</div>
-				<h2 style="margin-top: 20px;">Auto-Animate</h2>
-			</section>
-			<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-				<div class="r-stack">
-					<div data-id="box1" style="background: cyan; width: 300px; height: 300px; border-radius: 200px;">
-					</div>
-					<div data-id="box2" style="background: magenta; width: 200px; height: 200px; border-radius: 200px;">
-					</div>
-					<div data-id="box3" style="background: yellow; width: 100px; height: 100px; border-radius: 200px;">
-					</div>
-				</div>
-				<h2 style="margin-top: 20px;">Auto-Animate</h2>
-			</section>
 
+
+
+			<section data-background="./assets/bg6.png" class="left-side">
+				<section data-markdown data-background="./assets/bg6.png" class="left-side">
+				
+					<script type="text/template">
+						>With user-based collaborative filtering, the model is trying to do "given user A and user B have similar interests, the things that user A is interested should be relevant to user B":
+					</script>
+				</section>
+				<section data-markdown>
+				<script type="text/template">
+					1. Let the following be the situation:
+					- The girl in red is interested in grape, strawberry, watermelon and orange.
+					- The girl in blue is only interested in strawberry.
+					- The boy in purple is interested in strawberry and watermelon. 
+				</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						2. The model thinks that the boy in purple is similar to girl in red, hence it recommends grape and orange to the boy.				</script>
+	
+					</script>
+					</section>
+					
+
+			</section>
 			<section>
-				<h2>Touch Optimized</h2>
-				<p>
-					Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your
-					slides.
-				</p>
+				<section data-markdown> 
+					<script type="text/template">
+					**What about item-based collaborative filtering?**
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+
+With item-based collaborative filtering, the model is trying to do "given item A and item B have similar characteristics, if someone likes item A then probably they like item B too":
+<img src="https://miro.medium.com/max/720/1*QvhetbRjCr1vryTch_2HZQ.jpeg" />
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						
+						- The girl in red is interested in grape, watermelon and orange.
+						- The girl in blue is interested in grape and watermelon.
+						- The boy in purple is interested in watermelon.
+						- Grape and watermelon is similar in some ways.
+						
+						> The model thinks that the boy in purple would like grape, given that grape and watermelon is similar in some ways.
+					</script>
+				</section>
+
+				
 			</section>
 
 			<section data-markdown>
-				<script type="text/template">
-						## Markdown support
-
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [docs](https://revealjs.com/markdown/).
-
-						```html []
-						<section data-markdown>
-						  ## Markdown support
-
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [docs](https://revealjs.com/markdown/).
-						</section>
-						```
-					</script>
-			</section>
-
-			<section>
-				<p>Add the <code>r-fit-text</code> class to auto-size text</p>
-				<h2 class="r-fit-text">FIT TEXT</h2>
-			</section>
-
-			<section>
-				<section id="fragments">
-					<h2>Fragments</h2>
-					<p>Hit the next arrow...</p>
-					<p class="fragment">... to step through ...</p>
-					<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span
-							class="fragment">slide.</span></p>
-
-					<aside class="notes">
-						This slide has fragments which are also stepped through in the notes window.
-					</aside>
-				</section>
-				<section>
-					<h2>Fragment Styles</h2>
-					<p>There's different types of fragments, like:</p>
-					<p class="fragment grow">grow</p>
-					<p class="fragment shrink">shrink</p>
-					<p class="fragment fade-out">fade-out</p>
-					<p>
-						<span style="display: inline-block;" class="fragment fade-right">fade-right, </span>
-						<span style="display: inline-block;" class="fragment fade-up">up, </span>
-						<span style="display: inline-block;" class="fragment fade-down">down, </span>
-						<span style="display: inline-block;" class="fragment fade-left">left</span>
-					</p>
-					<p class="fragment fade-in-then-out">fade-in-then-out</p>
-					<p class="fragment fade-in-then-semi-out">fade-in-then-semi-out</p>
-					<p>Highlight <span class="fragment highlight-red">red</span> <span
-							class="fragment highlight-blue">blue</span> <span
-							class="fragment highlight-green">green</span></p>
-				</section>
-			</section>
-
-			<section id="transitions">
-				<h2>Transition Styles</h2>
-				<p>
-					You can select from different transitions, like: <br>
-					<a href="?transition=none#/transitions">None</a> -
-					<a href="?transition=fade#/transitions">Fade</a> -
-					<a href="?transition=slide#/transitions">Slide</a> -
-					<a href="?transition=convex#/transitions">Convex</a> -
-					<a href="?transition=concave#/transitions">Concave</a> -
-					<a href="?transition=zoom#/transitions">Zoom</a>
-				</p>
-			</section>
-
-			<section>
-				<section data-background="#dddddd">
-					<h2>Slide Backgrounds</h2>
-					<p>
-						Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS
-						color formats are supported.
-					</p>
-					<a href="#" class="navigate-down">
-						<img class="r-frame" style="background: rgba(255,255,255,0.1);" width="178" height="238"
-							data-src="https://static.slid.es/reveal/arrow.png" alt="Down arrow">
-					</a>
-				</section>
-				<section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
-					<h2>Gradient Backgrounds</h2>
-					<pre><code class="hljs html wrap">&lt;section data-background-gradient=
-							"linear-gradient(to bottom, #ddd, #191919)"&gt;</code></pre>
-				</section>
-				<section data-background="https://static.slid.es/reveal/image-placeholder.png">
-					<h2>Image Backgrounds</h2>
-					<pre><code class="hljs html">&lt;section data-background="image.png"&gt;</code></pre>
-				</section>
-				<section data-background="https://static.slid.es/reveal/image-placeholder.png"
-					data-background-repeat="repeat" data-background-size="100px">
-					<h2>Tiled Backgrounds</h2>
-					<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-				</section>
-				<section data-background-video="https://static.slid.es/site/homepage/v1/homepage-video-editor.mp4"
-					data-background-color="#000000">
-					<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-						<h2>Video Backgrounds</h2>
-						<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-					</div>
-				</section>
-				<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-					<h2>... and GIFs!</h2>
-				</section>
-			</section>
-
-			<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-				<h2>Background Transitions</h2>
-				<p>
-					Different background transitions are available via the backgroundTransition option. This one's
-					called "zoom".
-				</p>
-				<pre><code class="hljs javascript">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-			</section>
-
-			<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-				<h2>Background Transitions</h2>
-				<p>
-					You can override background transitions per-slide.
-				</p>
-				<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-			</section>
-
-			<section data-background-iframe="https://hakim.se" data-background-interactive>
-				<div
-					style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-					<h2>Iframe Backgrounds</h2>
-					<p>Since reveal.js runs on the web, you can easily embed other web content. Try interacting with the
-						page in the background.</p>
-				</div>
-			</section>
-
-			<section>
-				<h2>Marvelous List</h2>
-				<ul>
-					<li>No order here</li>
-					<li>Or here</li>
-					<li>Or here</li>
-					<li>Or here</li>
-				</ul>
-			</section>
-
-			<section>
-				<h2>Fantastic Ordered List</h2>
-				<ol>
-					<li>One is smaller than...</li>
-					<li>Two is smaller than...</li>
-					<li>Three!</li>
-				</ol>
-			</section>
-
-			<section>
-				<h2>Tabular Tables</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>Item</th>
-							<th>Value</th>
-							<th>Quantity</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Apples</td>
-							<td>$1</td>
-							<td>7</td>
-						</tr>
-						<tr>
-							<td>Lemonade</td>
-							<td>$2</td>
-							<td>18</td>
-						</tr>
-						<tr>
-							<td>Bread</td>
-							<td>$3</td>
-							<td>2</td>
-						</tr>
-					</tbody>
-				</table>
-			</section>
-
-			<section>
-				<h2>Clever Quotes</h2>
-				<p>
-					These guys come in two forms, inline: <q
-						cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">The
-						nice thing about standards is that there are so many to choose from</q> and block:
-				</p>
-				<blockquote
-					cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-					&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of
-					typewriters would
-					reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-				</blockquote>
-			</section>
-
-			<section>
-				<h2>Intergalactic Interconnections</h2>
-				<p>
-					You can link between slides internally,
-					<a href="#/2/3">like this</a>.
-				</p>
-			</section>
-
-			<section>
-				<h2>Speaker View</h2>
-				<p>There's a <a href="https://revealjs.com/speaker-view/">speaker view</a>. It includes a timer, preview
-					of the upcoming slide as well as your speaker notes.</p>
-				<p>Press the <em>S</em> key to try it out.</p>
-
-				<aside class="notes">
-					Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you
-					open the speaker notes window (hit 's' on your keyboard).
-				</aside>
-			</section>
-
-			<section>
-				<h2>Export to PDF</h2>
-				<p>Presentations can be <a href="https://revealjs.com/pdf-export/">exported to PDF</a>, here's an
-					example:</p>
-				<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355"
-					frameborder="0" marginwidth="0" marginheight="0" scrolling="no"
-					style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+			
+#### The Good and the Bad
+| The Good | The Bad |
+| --- | --- |
+| No domain knowledge necessary | Cannot handle fresh items during production |
+| Can help users discover new interests | Hard to include side features |
 			</section>
 
 			<section>
@@ -713,6 +526,7 @@ Reveal.on( 'customevent', function() {
 	<script src="plugin/search/search.js"></script>
 	<script src="plugin/markdown/markdown.js"></script>
 	<script src="plugin/highlight/highlight.js"></script>
+	<script src="plugin/math/math.js"></script>
 	<script>
 
 		// Also available as an ES module, see:
@@ -724,7 +538,7 @@ Reveal.on( 'customevent', function() {
 			hash: true,
 
 			// Learn about plugins: https://revealjs.com/plugins/
-			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX]
 		});
 
 	</script>

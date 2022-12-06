@@ -239,7 +239,7 @@ Recommendations allow users to get in touch with compelling content in large cor
 						
 				</script>
 				</section>
-			
+
 				<section data-markdown class="left-side">
 					<script type="text/template">
 						2. What are the primary components of a recommender system?
@@ -387,21 +387,23 @@ Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize
 						1. Pick a similarity metric (for example, dot product)
 						2. Set up the system to score each candidate item according to this similarity metric
 					</script>
-	
-					
+
+
 				</section>
 				<section data-markdown data-background="./assets/bg1.png">
-					Based on the feature matrix above and using dot product `$$ \sum_{n=1}^{d} x_i y_i $$`let user embedding
-					as $x$ while app embedding as $y$ (binary vectors) - if the feature both appearing in $x$ and $y$, then
+					Based on the feature matrix above and using dot product `$$ \sum_{n=1}^{d} x_i y_i $$`let user
+					embedding
+					as $x$ while app embedding as $y$ (binary vectors) - if the feature both appearing in $x$ and $y$,
+					then
 					`1 * 1 = 1`.
-	
+
 				</section>
 			</section>
-		
 
 
 
-	
+
+
 
 			<section data-markdown data-background="./assets/bg2.png">
 				#### The Good and the Bad
@@ -447,13 +449,13 @@ Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize
 
 			<section data-background="./assets/bg6.png" class="left-side">
 				<section data-markdown data-background="./assets/bg6.png" class="left-side">
-				
+
 					<script type="text/template">
 						>With user-based collaborative filtering, the model is trying to do "given user A and user B have similar interests, the things that user A is interested should be relevant to user B":
 					</script>
 				</section>
 				<section data-markdown>
-				<script type="text/template">
+					<script type="text/template">
 					1. Let the following be the situation:
 					- The girl in red is interested in grape, strawberry, watermelon and orange.
 					- The girl in blue is only interested in strawberry.
@@ -464,14 +466,14 @@ Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize
 				<section data-markdown>
 					<script type="text/template">
 						2. The model thinks that the boy in purple is similar to girl in red, hence it recommends grape and orange to the boy.				</script>
-	
+
 					</script>
-					</section>
-					
+				</section>
+
 
 			</section>
-			<section>
-				<section data-markdown> 
+			<section data-background="./assets/bg5.png">
+				<section data-markdown>
 					<script type="text/template">
 					**What about item-based collaborative filtering?**
 					</script>
@@ -486,7 +488,7 @@ With item-based collaborative filtering, the model is trying to do "given item A
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-						
+
 						- The girl in red is interested in grape, watermelon and orange.
 						- The girl in blue is interested in grape and watermelon.
 						- The boy in purple is interested in watermelon.
@@ -498,7 +500,7 @@ With item-based collaborative filtering, the model is trying to do "given item A
 
 				<section data-markdown>
 					<script type="text/template">
-						
+
 						## Short Quiz 4
 						The model recommends a shopping app to a user because they recently installed a similar app. What kind of filtering is this an example of?
 						- A. Collaborative filtering
@@ -514,24 +516,81 @@ With item-based collaborative filtering, the model is trying to do "given item A
 				</section>
 			</section>
 
-			<section data-markdown>
+			<section data-markdown data-background="./assets/bg6.png">
+
+				#### The Good and the Bad
+				| The Good | The Bad |
+				| --- | --- |
+				| No domain knowledge necessary | Cannot handle fresh items during production |
+				| Can help users discover new interests | Hard to include side features |
+			</section>
+
+
+
+			<section data-background="./assets/bg4.png">
+				<section data-markdown>
+					### Recommendations using Deep Neural Networks
+					Collaborative filtering learn embeddings via matrix factorization. This method is limited in terms
+					of:
+					1. Hard to include side features
+					2. Popular items tend to be recommended for everyone
+				</section>
+
+				<section data-markdown>
+**DNN models can address these limitations of matrix factorization**
+> easily incorporate query features and item features (due to the flexibility of the input layer of the network), which can help capture the specific interests of a user and improve the relevance of recommendations.
+				</section>
+
+				<section data-markdown>
+For the sake of time, we will not touch DNNs further. You can find out further [here](https://developers.google.com/machine-learning/recommendation/dnn/softmax).
+				</section>
+			</section>
+
+			<section  data-background="./assets/bg3.png">
+				<section data-markdown>
+					### Retrieval
+After candidate generation (means that we have an embedding model), the system can do two (2) things at serve time:
+
+				</section>
+				<section data-markdown>
+1. Matrix factorization - query embedding is known statically: Simply look up query embedding from embedding matrix
+2. DNN model - query embedding unknown: Simply compute query embedding at serve time (inference)
+				</section>
+
+				<section data-markdown>
+					Now that we have:
+1. Query embedding, $q$ - represented by blue circle below;
+2. Item embeddings, $V_j$ - represented by green circle below;
+				</section>
+
+				<section data-markdown>
+					then we can return top K items using similarity score $s(q, V_j)$.
+
+![Retrieval](https://developers.google.com/machine-learning/recommendation/images/2Dretrieval.svg)
+
+				</section>
+
+				<section data-markdown>
+					### Scaling Up
+To find nearest neighbours, the system can exhaustively score every potential candidate - but it can be very expensive for large corpora. Possible workarounds:
+1. Statically-known query: Offline exhaustive scoring -> precompute and store list of top candidates
+2. Unknown query: Approximate nearest neightbour method
+				</section>
+			</section>
+
 			
-#### The Good and the Bad
-| The Good | The Bad |
-| --- | --- |
-| No domain knowledge necessary | Cannot handle fresh items during production |
-| Can help users discover new interests | Hard to include side features |
-			</section>
+			<section data-markdown  data-background="./assets/bg1.png">
+			
+## Scoring
+Generated candidates can come from multiple candidate generators using different sources:
+- Related items
+- User features
+- Geographic info
+- Popular or trending items
+- Social graph (liked or recommended by friends)
 
-			<section>
-				<h2>Global State</h2>
-				<p>
-					Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-					will be added as a class to the document element when the slide is open. This lets you
-					apply broader style changes, like switching the page background.
-				</p>
 			</section>
-
+		</section>
 			<section data-state="customevent">
 				<h2>State Events</h2>
 				<p>

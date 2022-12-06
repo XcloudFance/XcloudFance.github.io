@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title> Recommendation System - Machine Learning Appetizer Course - GDSC </title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	<style type="text/css" media="screen">
+		/* Google Dark Grey */
+		h1,
+		h2,
+		h3 {
+			color: #404040;
+		}
+
+		/* Google Grey */
+
+
+		#lefter {
+
+			text-align: left;
+			padding-left: 10%;
+			padding-top: 20%;
+
+		}
+
+		.slides {
+			line-height: 10%;
+		}
+
+		.left-side {
+			text-align: left;
+		}
+
+		.column {
+			float: left;
+			width: 50%;
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section data-background="./assets/bg.png">
+				<div id="lefter" class="row">
+					<h3 class="row">Machine Learning Appetizer Course</h3>
+
+					<small>Session3: Recommendation Systems
+					</small>
+					<br />
+					<div class="column" style="margin-left: -70px;">
+						<img class="column" src="./assets/yh.jpg" style="height:140px; width:130px;" />
+						<div class="column">
+							<small class="row" style="padding-left: 25px; padding-top: 25px; color:#4285F4;">Yu Yuen
+								Hern</small>
+							<br />
+							<a href="https://github.com/yuenherny"><img class="row" src="./assets/github.png"
+									style="margin-left:25px;height:40px; width:40px;" /></a>
+						</div>
+					</div>
+
+					<div class="column">
+						<img class="column" src="./assets/hy.jpg" style="height:140px; width:110px;" />
+						<div class="column">
+							<small class="row"
+								style="padding-left: 25px; padding-top: 25px; color:#4285F4;">Hongyi(Lance) Cai</small>
+							<a href="https://github.com/xcloudfance"><img class="row" src="./assets/github.png"
+									style="margin-left:25px;height:40px; width:40px;" /></a>
+						</div>
+					</div>
+
+				</div>
+			</section>
+
+			<section data-background="./assets/bg1.png">
+
+				<section data-markdown>
+					<script type="text/template">
+					## What are Recommendations?
+Recommendations are the suggestions served up based on other things the user (e.g. you) like.
+						<img   class="fragment fade-up" src="./assets/sample1.png" style="height: 300px;"/>
+					</script>
+
+
+
+				</section>
+
+				<section data-markdown class="left-side">
+					<script type="text/template">
+
+## Why Recommendations?
+Recommendations allow users to get in touch with compelling content in large corpora, particularly **items** that the user might not have thought to search for their own.
+					</script>
+				</section>
+			</section>
+
+
+			<section data-background="./assets/bg1.png" class="left-side">
+
+				<section data-markdown>
+					<script type="text/template">
+					## Terminologies
+					Few terminologies to know:
+					1. Items
+						- A.K.A documents
+						- For YouTube / Netflix, the items are videos and shows
+				
+					</script>
+
+
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					2. Query:
+						- A.K.A context
+						- The information used to make recommendations
+						- Can be a combination of user information (i.e. user ID, user history) and additional context (i.e. time of day, user device)
+		
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					3. Embedding
+						- A.K.A mapping to vector space
+						- A mapping from a discrete set (set of items) to an embedding space
+					</script>
+				</section>
+
+				<section data-auto-animate>
+					<h2 data-id="code-title">An example</h2>
+					<pre data-id="code-animation"><code class="python" data-trim data-line-numbers>
+						# Idealized Representation of Embedding
+						books = ["War and Peace", "Anna Karenina", 
+								  "The Hitchhiker's Guide to the Galaxy"]
+						books_encoded_ideal = [[0.53,  0.85],
+											              [0.60,  0.80],
+											              [-0.78, -0.62]]
+					    ...
+						</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2 data-id="code-title">An example</h2>
+					<pre data-id="code-animation"><code class="python" data-trim data-line-numbers="|2,3|4-6|4|7|4-5">
+						# Idealized Representation of Embedding
+						books = ["War and Peace", "Anna Karenina", 
+								  "The Hitchhiker's Guide to the Galaxy"]
+						books_encoded_ideal = [[0.53,  0.85],
+											              [0.60,  0.80],
+											              [-0.78, -0.62]]
+						Similarity (dot product) between First and Second = 0.99
+						Similarity (dot product) between Second and Third = -0.94
+						Similarity (dot product) between First and Third = -0.97
+						</code></pre>
+					<small>(hint)dot product: x1y1 + x2y2</small>
+				</section>
+
+			</section>
+
+			<section data-background="./assets/bg1.png" class="left-side">
+
+				<section data-markdown>
+					<script type="text/template">
+						### Recommendation Systems Overview
+						A recommendation system consists of:
+						1. Candidate generation
+							- Generates a smaller subset of candidates from large corpus
+							- E.g. YouTube candidate generator reduces billions of videos down to thousands
+
+					</script>
+
+
+
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					2. Scoring
+						- Scores and ranks candidates in order
+						- Selects a set of sorted items to display to user
+					3. Re-ranking
+						- Take into account additional constraints for final ranking
+						- E.g. removing disliked items or boost fresher content
+					</script>
+				</section>
+
+				<section>
+					<img src="./assets/recommendation-systems-overview.svg" />
+				</section>
+
+
+
+			</section>
+
+
+			<section data-background="./assets/bg2.png">
+				<section data-markdown class="left-side">
+					<script type="text/template">
+						## Short Quiz 1
+						1. Why wouldn't you use recommendations systems?
+							- A. You want to direct users to sponsored items.
+							- B. You think you have to sprinkle ML on everything.
+							- C. Having recommendation engine makes browsing content easier. 
+						
+				</script>
+				</section>
+				<section data-markdown class="left-side">
+					<script type="text/template">
+						## The answer
+						 C. Having recommendation engine makes browsing content easier. 
+						
+				</script>
+				</section>
+
+				<section data-markdown class="left-side">
+					<script type="text/template">
+						2. What are the primary components of a recommender system?
+						- A. Embedding, similarity metrics and serving
+						- B. Matrix factorization, DNN and re-ranking
+						- C. Candidate generation, scoring and re-ranking
+						
+				</script>
+				</section>
+
+				<section data-markdown class="left-side">
+					<script type="text/template">
+						## The answer
+						C. Candidate generation, scoring and re-ranking
+						
+				</script>
+				</section>
+			</section>
+
+
+
+			<section data-background="./assets/bg2.png">
+				<section data-markdown class="left-side">
+					<script type="text/template">
+
+## Candidate Generation
+This is the first stage of recommendation: given a query, a set of relevant candidates are generated.
+
+				</script>
+				</section>
+
+				<section data-markdown class="left-side">
+					<script type="text/template">
+
+1. Content-based Filtering: 
+	- Uses **similarity between items** to recommend items similar to what the user likes.
+2. Collaborative Filtering
+	- Uses **similarities between queries and items simultaneously** to provide recommendations.
+
+				</script>
+				</section>
+
+
+				<section data-markdown class="left-side">
+					<script type="text/template">
+						<img src = "./assets/filtering.png" />
+
+				</script>
+				</section>
+			</section>
+
+
+
+
+
+
+			<section data-background="./assets/bg3.png">
+				<section data-markdown class="left-side">
+					<script type="text/template">
+
+### Basic Concepts: Embedding Space and Similarity Measure
+
+Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize embeddings and similarity measure.
+				</script>
+				</section>
+
+
+				<section data-markdown data-background="./assets/bg5.png">
+					<script type="text/template">
+						<h2>Embedding space</h2>
+						Embedding space is a low-dimensional space which captures some latent structure of item or query set.
+				</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+						## Similarity measure
+						Similarity measure is a function that takes a pair of embeddings and returns a scalar measuring their similarity. 
+						
+				</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						**Comparing similarity measures**
+						- Cosine: Cosine of angle between two vectors
+						- Dot product: The cosine of angle multipled by product of norms
+						- Euclidean distance: Usual distance in Euclidean space		
+							
+				</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+				## Eculidean distance
+				<img style="height:300px;" src = "./assets/Euclidean.png">	
+			</script>
+				</section>
+			</section>
+
+
+
+			<section data-markdown data-background="./assets/bg5.png">
+				<script type="text/template">
+					## Short Quiz
+					<small>Consider the example in the figure below. The black vector illustrates the query embedding. The other three embedding vectors (Item A, Item B, Item C) represent candidate items. Depending on the similarity measure used, the ranking of the items can be different.
+					</small>
+					<img class="column" src="https://developers.google.com/machine-learning/recommendation/images/Similarity.svg" style="height:400px;" />
+					<small class = "column"> </br>Using the image, try to determine the item ranking using all three of the similarity measures: cosine, dot product, and Euclidean distance. Note: Instructor is recommended to demo the solution.</small>
+					
+			</script>
+			</section>
+
+			<section data-markdown data-background="./assets/bg3.png">
+				<script type="text/template">
+				### Content-based Filtering
+				Content-based filtering uses **item features** to recommend other items similar to what the user likes, based on their **previous actions** or **explicit feedback**.
+				</script>
+			</section>
+
+
+			<section>
+				<section data-markdown data-background="./assets/bg4.png">
+					<script type="text/template">
+		#### How does content-based filtering work?
+
+				<small class="fragment slide-up"> The following figure shows a feature matrix where each row represents an app (see first 3 rows) and each column represents a feature. To simplify, assume this feature matrix is binary i.e. [0, 1, ..., 1]: a non-zero value means the app has that feature - i.e. the first app has the Education and Science R Us features. </small>
+				<img class="fragment slide-up" src = "./assets/Matrix1.svg" style = "height:350px"/>
+				</script>
+
+
+
+				</section>
+
+
+			</section>
+
+
+
+			<section>
+				<section data-markdown data-background="./assets/bg6.png">
+					<script type="text/template">
+						Your objective is that the model should recommend items relevant to this user:
+	
+						1. Pick a similarity metric (for example, dot product)
+						2. Set up the system to score each candidate item according to this similarity metric
+					</script>
+
+
+				</section>
+				<section data-markdown data-background="./assets/bg1.png">
+					Based on the feature matrix above and using dot product `$$ \sum_{n=1}^{d} x_i y_i $$`let user
+					embedding
+					as $x$ while app embedding as $y$ (binary vectors) - if the feature both appearing in $x$ and $y$,
+					then
+					`1 * 1 = 1`.
+
+				</section>
+			</section>
+
+
+
+
+
+
+			<section data-markdown data-background="./assets/bg2.png">
+				#### The Good and the Bad
+				| The Good | The Bad |
+				| --- | --- |
+				| Easily scalable | Recommendations limited to users' existing interests |
+				| Can capture specific interests of users | Requires a lot of domain knowledge for feature engineering |
+
+			</section>
+
+
+			<section data-markdown data-background="./assets/bg3.png">
+				## Short Quiz 3
+				Calculate the dot product for each app in the preceding app problem. Which app should we recommend?
+				- A. The casual app created by TimeWastr.
+				- B. The educational app created by Science R Us. (Answer)
+				- C. The health app created by Healthcare.
+			</section>
+
+
+
+			<section class="left-side" data-background="./assets/bg5.png">
+
+				<h3> Collaborative Filtering </h3>
+				<p> Collaborative filtering uses similarities between users and items simultaneously to provide
+					recommendations. Hence collaborative filtering can recommend an item to user A based on the
+					interests of similar user B.</p>
+
+
+
+			</section>
+
+			<section>
+
+				<img src="https://miro.medium.com/max/720/1*QvhetbRjCr1vryTch_2HZQ.jpeg" />
+				<br />
+				From the figure above, notice that there are two types of collaborative filtering: user-based and
+				item-based. Let's look at user-based first.
+			</section>
+
+
+
+
+			<section data-background="./assets/bg6.png" class="left-side">
+				<section data-markdown data-background="./assets/bg6.png" class="left-side">
+
+					<script type="text/template">
+						>With user-based collaborative filtering, the model is trying to do "given user A and user B have similar interests, the things that user A is interested should be relevant to user B":
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					1. Let the following be the situation:
+					- The girl in red is interested in grape, strawberry, watermelon and orange.
+					- The girl in blue is only interested in strawberry.
+					- The boy in purple is interested in strawberry and watermelon. 
+				</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						2. The model thinks that the boy in purple is similar to girl in red, hence it recommends grape and orange to the boy.				</script>
+
+					</script>
+				</section>
+
+
+			</section>
+			<section data-background="./assets/bg5.png">
+				<section data-markdown>
+					<script type="text/template">
+					**What about item-based collaborative filtering?**
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+
+With item-based collaborative filtering, the model is trying to do "given item A and item B have similar characteristics, if someone likes item A then probably they like item B too":
+<img src="https://miro.medium.com/max/720/1*QvhetbRjCr1vryTch_2HZQ.jpeg" />
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						- The girl in red is interested in grape, watermelon and orange.
+						- The girl in blue is interested in grape and watermelon.
+						- The boy in purple is interested in watermelon.
+						- Grape and watermelon is similar in some ways.
+						
+						> The model thinks that the boy in purple would like grape, given that grape and watermelon is similar in some ways.
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## Short Quiz 4
+						The model recommends a shopping app to a user because they recently installed a similar app. What kind of filtering is this an example of?
+						- A. Collaborative filtering
+						- B. Content-based filtering
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## The answer
+						B. Content-based filtering
+					</script>
+				</section>
+			</section>
+
+			<section data-markdown data-background="./assets/bg6.png">
+				#### The Good and the Bad
+				| The Good | The Bad |
+				| --- | --- |
+				| No domain knowledge necessary | Cannot handle fresh items during production |
+				| Can help users discover new interests | Hard to include side features |
+			</section>
+
+
+
+			<section data-background="./assets/bg4.png">
+				<section data-markdown>
+					### Recommendations using Deep Neural Networks
+					Collaborative filtering learn embeddings via matrix factorization. This method is limited in terms
+					of:
+					1. Hard to include side features
+					2. Popular items tend to be recommended for everyone
+				</section>
+
+				<section data-markdown>
+					**DNN models can address these limitations of matrix factorization**
+					> easily incorporate query features and item features (due to the flexibility of the input layer of
+					the network), which can help capture the specific interests of a user and improve the relevance of
+					recommendations.
+				</section>
+
+				<section data-markdown>
+					For the sake of time, we will not touch DNNs further. You can find out further
+					[here](https://developers.google.com/machine-learning/recommendation/dnn/softmax).
+				</section>
+			</section>
+
+			<section data-background="./assets/bg3.png">
+				<section data-markdown>
+					### Retrieval
+					After candidate generation (means that we have an embedding model), the system can do two (2) things
+					at serve time:
+
+				</section>
+				<section data-markdown>
+					1. Matrix factorization - query embedding is known statically: Simply look up query embedding from
+					embedding matrix
+					2. DNN model - query embedding unknown: Simply compute query embedding at serve time (inference)
+				</section>
+
+				<section data-markdown>
+					Now that we have:
+					1. Query embedding, $q$ - represented by blue circle below;
+					2. Item embeddings, $V_j$ - represented by green circle below;
+				</section>
+
+				<section data-markdown>
+					then we can return top K items using similarity score $s(q, V_j)$.
+
+					![Retrieval](https://developers.google.com/machine-learning/recommendation/images/2Dretrieval.svg)
+
+				</section>
+
+				<section data-markdown>
+					### Scaling Up
+					To find nearest neighbours, the system can exhaustively score every potential candidate - but it can
+					be very expensive for large corpora. Possible workarounds:
+					1. Statically-known query: Offline exhaustive scoring -> precompute and store list of top candidates
+					2. Unknown query: Approximate nearest neightbour method
+				</section>
+			</section>
+
+			<section>
+
+			<section data-markdown data-background="./assets/bg1.png">
+				## Scoring
+				Generated candidates can come from multiple candidate generators using different sources:
+				- Related items
+				- User features
+				- Geographic info
+				- Popular or trending items
+				- Social graph (liked or recommended by friends)
+
+			</section>
+
+	
+
+
+			<section data-markdown>
+				<script type="text/template">
+1. These sources are combined into a common pool of candidates, like:
+    - Get personalization info
+    - Get trending items in respective area
+2. Scored by single model and ranked according to score, like:
+    - Model predict the probability of user watching a video using query and video features
+    - Items ranked according to probability of watch
+				</script>
+			</section>
+
+
+			<section data-markdown>
+				<script type="text/template">
+					### Objective Function for Scoring
+					Choice of objective function can affect rankings and subsequently quality of recommendations:
+					1. **Maximize click rate** - may recommend click-bait videos
+					2. **Maximuze watch time** - may recommend very long videos
+					3. **Increase diversity and maximize watch time** - may recommend short and engaging videos
+					
+				</script>
+			</section>
+
+
+		</section>
+			<section data-markdown data-background="./assets/bg5.png">
+
+				<section data-markdown>
+					<script type="text/template">
+					### Positional Bias in Scoring
+					Items that appear lower on the screen are less likely to be clicked than items appearing higher on the screen. 
+
+					
+				</script>
+				</section>
+
+				<section data-markdown>
+					Querying the model with all possible positions is too expensive and the system still might not find
+					a consistent ranking across multiple ranking scores:
+					1. Create position-independent rankings
+					2. Rank all candidates as if they are in the top position on the screen
+
+				</section>
+
+			</section>
+
+			<section  data-background="./assets/bg1.png">
+				<section data-markdown>
+					## Re-ranking
+					Re-ranking can improve the recommendations by considering additional criteria or constraints:
+					
+				</section>
+				<section data-markdown>
+					1. **Use filters to remove some candidates** - i.e. removing click-baits:
+					- Training a separate model that detects whether a video is click-bait.
+					- Running this model on the candidate list.
+					- Removing the videos that the model classifies as click-bait.
+				</section>
+				<section data-markdown>
+					2. **Transform the score returned by the ranker** - i.e. modifying score:
+					- As a function of video age (promote fresher content)
+					- As a function of video length (increase viewing time)
+				</section>
+			</section>
+
+
+			<section data-background="./assets/bg6.png">
+
+				<section data-markdown>
+					**So, What are the challenges?**
+				</section>
+
+				<section data-markdown>
+					1. **Freshness**: Aim to incorporate the latest usage information, e.g. current user history and the
+					newest items
+					- Warm-start and re-run training as often as possible
+					- Create an "average" user to represent new users in matrix factorization models
+					- Use a DNN such as a softmax model or two-tower model
+					- Add document age as a feature
+				</section>
+
+				<section data-markdown>
+					2. **Diversity**: Lack of diversity can cause a bad or boring user experience
+					- Train multiple candidate generators using different sources
+					- Train multiple rankers using different objective functions
+					- Re-rank items based on genre or other metadata
+
+
+				</section>
+
+				<section data-markdown>
+					3. **Fairness**: Treat all users fairly and reduce unconscious bias in data
+					- Include diverse perspectives in design and development
+					- Train ML models on comprehensive data sets and add auxilliary data when certain groups are
+					underrepresented
+					- Track metrics on each demographic to watch for biases
+					- Make separate models for underserved groups
+				</section>
+
+			</section>
+
+			<section>
+				<section data-markdown>
+					## Conclusion
+				</section>
+
+
+				<section data-markdown>
+					1. Recommendations are the suggestions served up based on other things the user (e.g. you) like and
+					they allow users to get in touch with compelling content in large corpora, particularly items that
+					the user might not have thought to search for their own.
+				</section>
+
+				<section data-markdown>
+					2. Recommendations can be performed via three (3) steps:
+					- Candidate generation
+					- Scoring
+					- Re-ranking
+
+				</section>
+				<section data-markdown>
+					3. Items and queries can be represented using embeddings.
+				</section>
+				<section data-markdown>
+					4. Candidate generation is performed via:
+					- Content-based filtering
+					- Collaborative filtering (user or item-based)
+					- Deep neural networks
+				</section>
+				<section data-markdown>
+					5. Scoring can be performed for:
+					- Maximizing click rate, but might promote click-baits
+					- Maximuzing watch time, but might promote long videos
+					- Both increase diversity and maximize watch time
+				 </section>
+				<section data-markdown>
+					6. Re-ranking can be performed via:
+					- Filtering to remove candidates - i.e. click-baits
+					- Transformt the score - i.e. fresher content
+
+					7. Challenges for a recommendation system:
+					- Freshness of model
+					- Diversity of content
+					- Fairness for users
+				 </section>
+			</section>
+
+			<section>
+			<section data-markdown>
+				## Demo
+Please visit this [Streamlit app](https://share.streamlit.io/mnobeidat13/handm-recommender-system/main) for the recommendation system demo.
+
+			</section>
+
+	
+		</section>
+
+			<section style="text-align: left;">
+				<h1>THE END</h1>
+				<p>
+					- <a
+						href="https://github.com/yuenherny/gdsc-ml-rcmd-system/edit/main/GDSC-ML-Recommendation-Systems.md">Try
+						to read our document</a> <br>
+					- <a href="https://developers.google.com/machine-learning/recommendation">Google Crash Course</a>
+				</p>
+			</section>
+
+		</div>
+
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/zoom/zoom.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/search/search.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script src="plugin/math/math.js"></script>
+	<script>
+
+		// Also available as an ES module, see:
+		// https://revealjs.com/initialization/
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX]
+		});
+
+	</script>
+
+</body>
+
+</html>

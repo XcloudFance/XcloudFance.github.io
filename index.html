@@ -488,7 +488,6 @@ With item-based collaborative filtering, the model is trying to do "given item A
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-
 						- The girl in red is interested in grape, watermelon and orange.
 						- The girl in blue is interested in grape and watermelon.
 						- The boy in purple is interested in watermelon.
@@ -500,7 +499,6 @@ With item-based collaborative filtering, the model is trying to do "given item A
 
 				<section data-markdown>
 					<script type="text/template">
-
 						## Short Quiz 4
 						The model recommends a shopping app to a user because they recently installed a similar app. What kind of filtering is this an example of?
 						- A. Collaborative filtering
@@ -517,7 +515,6 @@ With item-based collaborative filtering, the model is trying to do "given item A
 			</section>
 
 			<section data-markdown data-background="./assets/bg6.png">
-
 				#### The Good and the Bad
 				| The Good | The Bad |
 				| --- | --- |
@@ -537,97 +534,233 @@ With item-based collaborative filtering, the model is trying to do "given item A
 				</section>
 
 				<section data-markdown>
-**DNN models can address these limitations of matrix factorization**
-> easily incorporate query features and item features (due to the flexibility of the input layer of the network), which can help capture the specific interests of a user and improve the relevance of recommendations.
+					**DNN models can address these limitations of matrix factorization**
+					> easily incorporate query features and item features (due to the flexibility of the input layer of
+					the network), which can help capture the specific interests of a user and improve the relevance of
+					recommendations.
 				</section>
 
 				<section data-markdown>
-For the sake of time, we will not touch DNNs further. You can find out further [here](https://developers.google.com/machine-learning/recommendation/dnn/softmax).
+					For the sake of time, we will not touch DNNs further. You can find out further
+					[here](https://developers.google.com/machine-learning/recommendation/dnn/softmax).
 				</section>
 			</section>
 
-			<section  data-background="./assets/bg3.png">
+			<section data-background="./assets/bg3.png">
 				<section data-markdown>
 					### Retrieval
-After candidate generation (means that we have an embedding model), the system can do two (2) things at serve time:
+					After candidate generation (means that we have an embedding model), the system can do two (2) things
+					at serve time:
 
 				</section>
 				<section data-markdown>
-1. Matrix factorization - query embedding is known statically: Simply look up query embedding from embedding matrix
-2. DNN model - query embedding unknown: Simply compute query embedding at serve time (inference)
+					1. Matrix factorization - query embedding is known statically: Simply look up query embedding from
+					embedding matrix
+					2. DNN model - query embedding unknown: Simply compute query embedding at serve time (inference)
 				</section>
 
 				<section data-markdown>
 					Now that we have:
-1. Query embedding, $q$ - represented by blue circle below;
-2. Item embeddings, $V_j$ - represented by green circle below;
+					1. Query embedding, $q$ - represented by blue circle below;
+					2. Item embeddings, $V_j$ - represented by green circle below;
 				</section>
 
 				<section data-markdown>
 					then we can return top K items using similarity score $s(q, V_j)$.
 
-![Retrieval](https://developers.google.com/machine-learning/recommendation/images/2Dretrieval.svg)
+					![Retrieval](https://developers.google.com/machine-learning/recommendation/images/2Dretrieval.svg)
 
 				</section>
 
 				<section data-markdown>
 					### Scaling Up
-To find nearest neighbours, the system can exhaustively score every potential candidate - but it can be very expensive for large corpora. Possible workarounds:
-1. Statically-known query: Offline exhaustive scoring -> precompute and store list of top candidates
-2. Unknown query: Approximate nearest neightbour method
+					To find nearest neighbours, the system can exhaustively score every potential candidate - but it can
+					be very expensive for large corpora. Possible workarounds:
+					1. Statically-known query: Offline exhaustive scoring -> precompute and store list of top candidates
+					2. Unknown query: Approximate nearest neightbour method
 				</section>
 			</section>
 
-			
-			<section data-markdown  data-background="./assets/bg1.png">
-			
-## Scoring
-Generated candidates can come from multiple candidate generators using different sources:
-- Related items
-- User features
-- Geographic info
-- Popular or trending items
-- Social graph (liked or recommended by friends)
+			<section>
+
+			<section data-markdown data-background="./assets/bg1.png">
+				## Scoring
+				Generated candidates can come from multiple candidate generators using different sources:
+				- Related items
+				- User features
+				- Geographic info
+				- Popular or trending items
+				- Social graph (liked or recommended by friends)
 
 			</section>
+
+	
+
+
+			<section data-markdown>
+				<script type="text/template">
+1. These sources are combined into a common pool of candidates, like:
+    - Get personalization info
+    - Get trending items in respective area
+2. Scored by single model and ranked according to score, like:
+    - Model predict the probability of user watching a video using query and video features
+    - Items ranked according to probability of watch
+				</script>
+			</section>
+
+
+			<section data-markdown>
+				<script type="text/template">
+					### Objective Function for Scoring
+					Choice of objective function can affect rankings and subsequently quality of recommendations:
+					1. **Maximize click rate** - may recommend click-bait videos
+					2. **Maximuze watch time** - may recommend very long videos
+					3. **Increase diversity and maximize watch time** - may recommend short and engaging videos
+					
+				</script>
+			</section>
+
+
 		</section>
-			<section data-state="customevent">
-				<h2>State Events</h2>
-				<p>
-					Additionally custom events can be triggered on a per slide basis by binding to the
-					<code>data-state</code> name.
-				</p>
-				<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.on( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
+			<section data-markdown data-background="./assets/bg5.png">
+
+				<section data-markdown>
+					<script type="text/template">
+					### Positional Bias in Scoring
+					Items that appear lower on the screen are less likely to be clicked than items appearing higher on the screen. 
+
+					
+				</script>
+				</section>
+
+				<section data-markdown>
+					Querying the model with all possible positions is too expensive and the system still might not find
+					a consistent ranking across multiple ranking scores:
+					1. Create position-independent rankings
+					2. Rank all candidates as if they are in the top position on the screen
+
+				</section>
+
+			</section>
+
+			<section  data-background="./assets/bg1.png">
+				<section data-markdown>
+					## Re-ranking
+					Re-ranking can improve the recommendations by considering additional criteria or constraints:
+					
+				</section>
+				<section data-markdown>
+					1. **Use filters to remove some candidates** - i.e. removing click-baits:
+					- Training a separate model that detects whether a video is click-bait.
+					- Running this model on the candidate list.
+					- Removing the videos that the model classifies as click-bait.
+				</section>
+				<section data-markdown>
+					2. **Transform the score returned by the ranker** - i.e. modifying score:
+					- As a function of video age (promote fresher content)
+					- As a function of video length (increase viewing time)
+				</section>
+			</section>
+
+
+			<section data-background="./assets/bg6.png">
+
+				<section data-markdown>
+					**So, What are the challenges?**
+				</section>
+
+				<section data-markdown>
+					1. **Freshness**: Aim to incorporate the latest usage information, e.g. current user history and the
+					newest items
+					- Warm-start and re-run training as often as possible
+					- Create an "average" user to represent new users in matrix factorization models
+					- Use a DNN such as a softmax model or two-tower model
+					- Add document age as a feature
+				</section>
+
+				<section data-markdown>
+					2. **Diversity**: Lack of diversity can cause a bad or boring user experience
+					- Train multiple candidate generators using different sources
+					- Train multiple rankers using different objective functions
+					- Re-rank items based on genre or other metadata
+
+
+				</section>
+
+				<section data-markdown>
+					3. **Fairness**: Treat all users fairly and reduce unconscious bias in data
+					- Include diverse perspectives in design and development
+					- Train ML models on comprehensive data sets and add auxilliary data when certain groups are
+					underrepresented
+					- Track metrics on each demographic to watch for biases
+					- Make separate models for underserved groups
+				</section>
+
 			</section>
 
 			<section>
-				<h2>Take a Moment</h2>
-				<p>
-					Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and
-					want to take distracting slides off the screen.
-				</p>
+				<section data-markdown>
+					## Conclusion
+				</section>
+
+
+				<section data-markdown>
+					1. Recommendations are the suggestions served up based on other things the user (e.g. you) like and
+					they allow users to get in touch with compelling content in large corpora, particularly items that
+					the user might not have thought to search for their own.
+				</section>
+
+				<section data-markdown>
+					2. Recommendations can be performed via three (3) steps:
+					- Candidate generation
+					- Scoring
+					- Re-ranking
+
+				</section>
+				<section data-markdown>
+					3. Items and queries can be represented using embeddings.
+				</section>
+				<section data-markdown>
+					4. Candidate generation is performed via:
+					- Content-based filtering
+					- Collaborative filtering (user or item-based)
+					- Deep neural networks
+				</section>
+				<section data-markdown>
+					5. Scoring can be performed for:
+					- Maximizing click rate, but might promote click-baits
+					- Maximuzing watch time, but might promote long videos
+					- Both increase diversity and maximize watch time
+				 </section>
+				<section data-markdown>
+					6. Re-ranking can be performed via:
+					- Filtering to remove candidates - i.e. click-baits
+					- Transformt the score - i.e. fresher content
+
+					7. Challenges for a recommendation system:
+					- Freshness of model
+					- Diversity of content
+					- Fairness for users
+				 </section>
 			</section>
 
 			<section>
-				<h2>Much more</h2>
-				<ul>
-					<li>Right-to-left support</li>
-					<li><a href="https://revealjs.com/api/">Extensive JavaScript API</a></li>
-					<li><a href="https://revealjs.com/auto-slide/">Auto-progression</a></li>
-					<li><a href="https://revealjs.com/backgrounds/#parallax-background">Parallax backgrounds</a></li>
-					<li><a href="https://revealjs.com/keyboard/">Custom keyboard bindings</a></li>
-				</ul>
+			<section data-markdown>
+				## Demo
+Please visit this [Streamlit app](https://share.streamlit.io/mnobeidat13/handm-recommender-system/main) for the recommendation system demo.
+
 			</section>
+
+	
+		</section>
 
 			<section style="text-align: left;">
 				<h1>THE END</h1>
 				<p>
-					- <a href="https://slides.com">Try the online editor</a> <br>
-					- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+					- <a
+						href="https://github.com/yuenherny/gdsc-ml-rcmd-system/edit/main/GDSC-ML-Recommendation-Systems.md">Try
+						to read our document</a> <br>
+					- <a href="https://developers.google.com/machine-learning/recommendation">Google Crash Course</a>
 				</p>
 			</section>
 

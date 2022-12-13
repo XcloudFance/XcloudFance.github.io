@@ -454,28 +454,7 @@ Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize
 
 
 
-			<section data-background="./assets/bg6.png" class="left-side">
-				<section data-markdown data-background="./assets/bg6.png" class="left-side">
 
-					<script type="text/template">
-						>With user-based collaborative filtering, the model is trying to do "given user A and user B have similar interests, the things that user A is interested should be relevant to user B":
-					</script>
-				</section>
-				<section data-markdown>
-					<script type="text/template">
-					1. Let the following be the situation:
-					- The girl in red is interested in grape, strawberry, watermelon and orange.
-					- The girl in blue is only interested in strawberry.
-					- The boy in purple is interested in strawberry and watermelon. 
-				</script>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						2. The model thinks that the boy in purple is similar to girl in red, hence it recommends grape and orange to the boy.				</script>
-
-					</script>
-				</section>
 
 
 			</section>
@@ -493,16 +472,7 @@ With item-based collaborative filtering, the model is trying to do "given item A
 <img src="https://miro.medium.com/max/720/1*QvhetbRjCr1vryTch_2HZQ.jpeg" />
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						- The girl in red is interested in grape, watermelon and orange.
-						- The girl in blue is interested in grape and watermelon.
-						- The boy in purple is interested in watermelon.
-						- Grape and watermelon is similar in some ways.
-						
-						> The model thinks that the boy in purple would like grape, given that grape and watermelon is similar in some ways.
-					</script>
-				</section>
+	
 
 				<section data-markdown>
 					<script type="text/template">
@@ -621,7 +591,7 @@ With item-based collaborative filtering, the model is trying to do "given item A
 					### Objective Function for Scoring
 					Choice of objective function can affect rankings and subsequently quality of recommendations:
 					1. **Maximize click rate** - may recommend click-bait videos
-					2. **Maximuze watch time** - may recommend very long videos
+					2. **Maximize watch time** - may recommend very long videos
 					3. **Increase diversity and maximize watch time** - may recommend short and engaging videos
 					
 				</script>
@@ -736,7 +706,7 @@ With item-based collaborative filtering, the model is trying to do "given item A
 				<section data-markdown>
 					5. Scoring can be performed for:
 					- Maximizing click rate, but might promote click-baits
-					- Maximuzing watch time, but might promote long videos
+					- Maximizing watch time, but might promote long videos
 					- Both increase diversity and maximize watch time
 				 </section>
 				<section data-markdown>
@@ -752,11 +722,13 @@ With item-based collaborative filtering, the model is trying to do "given item A
 			</section>
 
 			
-			<section data-background="./assets/bg1.png">
-				<h2>Demo</h2>
-Please visit this <a src = "https://share.streamlit.io/mnobeidat13/handm-recommender-system/main">Streamlit app</a> for the recommendation system demo.
+			<section data-markdown data-background="./assets/bg1.png">
+				## Demo
+
+Please visit this [Streamlit app](https://share.streamlit.io/mnobeidat13/handm-recommender-system/main)	 <a src = "https://share.streamlit.io/mnobeidat13/handm-recommender-system/main">Streamlit app for the recommendation system demo. 
 <br/>
-<img src = "./assets/qrcode_streamlit.png" style = "height:300px" />
+	
+![Retrieval](./assets/qrcode_streamlit.png)	
 			</section>
 			
 

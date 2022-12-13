@@ -102,7 +102,9 @@
 
 			<section data-background="./assets/bg2.png">
 				<h3>Attendance QR code</h3>
-				<a href='https://me-qr.com' border='0' style='cursor:pointer;display:block'><img src='https://cdn.me-qr.com/qr/41295020.png?v=1670407711' alt='Create qr code for free'></a><a href='https://me-qr.com' border='0' style='cursor:default;display:none'>Create qr code for free</a>
+				<a href='https://me-qr.com' border='0' style='cursor:pointer;display:block'><img
+						src='https://cdn.me-qr.com/qr/41295020.png?v=1670407711' alt='Create qr code for free'></a><a
+					href='https://me-qr.com' border='0' style='cursor:default;display:none'>Create qr code for free</a>
 			</section>
 			<section data-background="./assets/bg1.png">
 
@@ -421,13 +423,22 @@ Visit [here](http://projector.tensorflow.org/) for interactive tool to visualize
 
 			</section>
 
-
-			<section data-markdown data-background="./assets/bg3.png">
-				## Short Quiz 3
-				Calculate the dot product for each app in the preceding app problem. Which app should we recommend?
-				- A. The casual app created by TimeWastr.
-				- B. The educational app created by Science R Us. (Answer)
-				- C. The health app created by Healthcare.
+			<section>
+				<section data-markdown data-background="./assets/bg3.png">
+					## Short Quiz 3
+					Calculate the dot product for each app in the preceding app problem. Which app should we recommend?
+					- A. The casual app created by TimeWastr.
+					- B. The educational app created by Science R Us.
+					- C. The health app created by Healthcare.
+					
+				</section>
+				<section>
+					<img src = "./assets/Matrix1.svg" style = "height:350px"/>
+				</section>
+				<section data-markdown>
+					## answer
+					B. The educational app created by Science R Us.
+				</section>
 			</section>
 
 
@@ -472,7 +483,7 @@ With item-based collaborative filtering, the model is trying to do "given item A
 <img src="https://miro.medium.com/max/720/1*QvhetbRjCr1vryTch_2HZQ.jpeg" />
 					</script>
 				</section>
-	
+
 
 				<section data-markdown>
 					<script type="text/template">
@@ -560,22 +571,22 @@ With item-based collaborative filtering, the model is trying to do "given item A
 
 			<section>
 
-			<section data-markdown data-background="./assets/bg1.png">
-				## Scoring
-				Generated candidates can come from multiple candidate generators using different sources:
-				- Related items
-				- User features
-				- Geographic info
-				- Popular or trending items
-				- Social graph (liked or recommended by friends)
+				<section data-markdown data-background="./assets/bg1.png">
+					## Scoring
+					Generated candidates can come from multiple candidate generators using different sources:
+					- Related items
+					- User features
+					- Geographic info
+					- Popular or trending items
+					- Social graph (liked or recommended by friends)
 
-			</section>
-
-	
+				</section>
 
 
-			<section data-markdown>
-				<script type="text/template">
+
+
+				<section data-markdown>
+					<script type="text/template">
 1. These sources are combined into a common pool of candidates, like:
     - Get personalization info
     - Get trending items in respective area
@@ -583,11 +594,11 @@ With item-based collaborative filtering, the model is trying to do "given item A
     - Model predict the probability of user watching a video using query and video features
     - Items ranked according to probability of watch
 				</script>
-			</section>
+				</section>
 
 
-			<section data-markdown>
-				<script type="text/template">
+				<section data-markdown>
+					<script type="text/template">
 					### Objective Function for Scoring
 					Choice of objective function can affect rankings and subsequently quality of recommendations:
 					1. **Maximize click rate** - may recommend click-bait videos
@@ -595,10 +606,10 @@ With item-based collaborative filtering, the model is trying to do "given item A
 					3. **Increase diversity and maximize watch time** - may recommend short and engaging videos
 					
 				</script>
+				</section>
+
+
 			</section>
-
-
-		</section>
 			<section data-markdown data-background="./assets/bg5.png">
 
 				<section data-markdown>
@@ -620,11 +631,11 @@ With item-based collaborative filtering, the model is trying to do "given item A
 
 			</section>
 
-			<section  data-background="./assets/bg1.png">
+			<section data-background="./assets/bg1.png">
 				<section data-markdown>
 					## Re-ranking
 					Re-ranking can improve the recommendations by considering additional criteria or constraints:
-					
+
 				</section>
 				<section data-markdown>
 					1. **Use filters to remove some candidates** - i.e. removing click-baits:
@@ -708,7 +719,7 @@ With item-based collaborative filtering, the model is trying to do "given item A
 					- Maximizing click rate, but might promote click-baits
 					- Maximizing watch time, but might promote long videos
 					- Both increase diversity and maximize watch time
-				 </section>
+				</section>
 				<section data-markdown>
 					6. Re-ranking can be performed via:
 					- Filtering to remove candidates - i.e. click-baits
@@ -718,21 +729,23 @@ With item-based collaborative filtering, the model is trying to do "given item A
 					- Freshness of model
 					- Diversity of content
 					- Fairness for users
-				 </section>
+				</section>
 			</section>
 
-			
+
 			<section data-markdown data-background="./assets/bg1.png">
 				## Demo
 
-Please visit this [Streamlit app](https://share.streamlit.io/mnobeidat13/handm-recommender-system/main)	 <a src = "https://share.streamlit.io/mnobeidat13/handm-recommender-system/main">Streamlit app for the recommendation system demo. 
-<br/>
-	
-![Retrieval](./assets/qrcode_streamlit.png)	
-			</section>
-			
+				Please visit this [Streamlit app](https://share.streamlit.io/mnobeidat13/handm-recommender-system/main)
+				<a src="https://share.streamlit.io/mnobeidat13/handm-recommender-system/main">Streamlit app for the
+					recommendation system demo.
+					<br />
 
-	
+					![Retrieval](./assets/qrcode_streamlit.png)
+			</section>
+
+
+
 
 
 			<section style="text-align: left;">
@@ -746,9 +759,11 @@ Please visit this [Streamlit app](https://share.streamlit.io/mnobeidat13/handm-r
 			</section>
 
 			<section>
-				<a href='https://me-qr.com' border='0' style='cursor:pointer;display:block'><img src='https://cdn.me-qr.com/qr/41523352.png?v=1670672446' alt='Create qr code for free'></a><a href='https://me-qr.com' border='0' style='cursor:default;display:none'>Create qr code for free</a>
+				<a href='https://me-qr.com' border='0' style='cursor:pointer;display:block'><img
+						src='https://cdn.me-qr.com/qr/41523352.png?v=1670672446' alt='Create qr code for free'></a><a
+					href='https://me-qr.com' border='0' style='cursor:default;display:none'>Create qr code for free</a>
 			</section>
-		
+
 		</div>
 
 	</div>
